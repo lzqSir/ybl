@@ -1,0 +1,66 @@
+*{
+	margin:0;
+	padding:0;
+}
+.section_top{
+	width: 100%;
+}
+.section_top .display_date_box{
+	width: 100%;
+	border-bottom: 1px solid rgb(201,201,201);
+	padding-bottom: 15px;
+}
+.section_top .display_date_box .merchant_name_box{
+	width: 100%;
+	height:40px;
+	line-height: 40px;
+}
+.section_top .display_date_box .merchant_name_box .merchant_left{
+	margin-left: 20px;
+}
+.section_top .display_date_box .merchant_name_box .choose_dress{
+	width:164px;
+	height:23px;
+	border:1px solid rgb(170,170,170);
+	margin-left: 38px;
+}
+.section_top .display_date_box .seclet_time{
+	width: 100%;
+	margin-top: 10px;
+}
+.section_top .display_date_box .seclet_time .deal_time{
+	margin-left: 20px;
+}
+.section_top .display_date_box .search_box{
+	width: 100%;
+	height:40px;
+	line-height: 40px;
+	margin-top: 10px;
+}
+.section_top .display_date_box .search_box .search_btn{
+	width: 74px;
+	height:23px;
+	margin-left: 20px;
+	border:0;
+	border-radius:5px;
+}
+.display_bill_box{
+	width:95%;
+	margin:0 auto;
+	margin-top: 23px;
+}
+.display_bill_box .table_bill_list tr th{
+	text-align: center;
+	height:38px;
+	background:rgb(242,242,242)
+}
+.display_bill_box .table_bill_list tr td{
+	text-align: center;
+	height:38px;
+}
+body .yourclass{
+	border-radius:5px;
+}
+body .yourclass .layui-layer-title{
+	border-radius:5px;
+}

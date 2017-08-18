@@ -1,0 +1,77 @@
+﻿<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.7/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="lib/icheck/icheck.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="lib/layui-master/src/css/layui.css"/>
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>我的桌面</title>
+<style type="text/css">
+	.welcome_msg{width: 100%;height:46px;line-height: 46px;background:rgb(228,228,228);margin: 0;padding: 0;text-indent: 35px;}
+</style>
+</head>
+<body ng-controller="myWelcomeCtr">
+<p class="welcome_msg">上午好！ <span style="color:blue;">张三</span>，欢迎使用电子商务平台！！</p>
+<div class="page-container">
+	<div class="table-condensed">
+		<table class="table table-border table-bordered table-bg table-hover">
+			<thead>
+				<tr class="text-c">
+					<th>登录帐号</th>
+					<th>登录IP</th>
+					<th>IP所属地</th>
+					<th>登录状态</th>
+					<th>登录时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text-c" ng-repeat="item in code">
+					<td ng-bind="item.user"></td>
+					<td ng-bind="item.ip"></td>
+					<td ng-bind="item.dress"></td>
+					<td ng-bind="item.static"></td>
+					<td ng-bind="item.time"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="pageing" class="text-c"></div>
+	</div>
+</div>
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+<script src="lib/layui-master/src/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/layer/1.9.3/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="static/h-ui/js/service/httpService.js" type="text/javascript" charset="utf-8"></script>
+<script src="static/h-ui/js/controller/welcomeController.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	/**分页插件调用**/
+	layui.use(['laypage', 'layer'], function(){
+	  var laypage = layui.laypage ,layer = layui.layer;
+		laypage({
+		    cont: 'pageing'
+		    ,pages: 100
+		    ,skip: true
+		});
+	})
+
+</script>
+</body>
+</html>

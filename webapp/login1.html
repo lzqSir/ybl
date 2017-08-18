@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="lib/html5.js"></script>
+		<script type="text/javascript" src="lib/respond.min.js"></script>
+		<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/login.css"/>
+		<!--[if IE 6]>
+		<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+		<script>DD_belatedPNG.fix('*');</script>
+		<![endif]-->		
+		<title>商户平台</title>
+	</head>
+	<body>
+		<div class="container_warp">
+			<div class="header_pic">
+				<p class="beike_logo">
+					<img src="img/logo_beike.png"/>
+				</p>
+				<p class="beike_wrod">贝壳停车.商户平台</p>
+				<p class="beta_logo">
+					<img src="img/pic_beta_big.png"/>
+				</p>
+			</div>
+			<div class="form_box">
+				<form action="index.html" method="post" class="submit_box">
+					<div class="user_pic">
+						<img src="img/ic_head.png"/>
+					</div>
+					<div class="input_box">
+						<div class="userName_one">
+							<input type="text" name="" id="" value="" class="userName_input" placeholder="请输入用户名"/>
+							<span class="person_pic"></span>
+						</div>
+						<div class="userPassword_two">
+							<input type="password" name="" id="" value="" class="userPassword_input" placeholder="请输入密码"/>
+							<span class="password_pic"></span>
+						</div>
+						<div class="auth_code_box">
+							<input type="text" name="" id="" value="" class="verification_code" placeholder="请输入验证码"/>
+							<img src="img/yanzhenma.png" class="display_verification_code"/>
+						</div>
+						<div class="clear"></div>
+						<input type="button" name="" id="" value="登录" class="btn_comfirm"  onfocus="this.blur()";/>
+					</div>
+				</form>
+			</div>
+			<div class="footer">Copyright © 2016-2017, beckparking.com, All Rights Reserved</div>
+		</div>
+	</body>
+	<script src="lib/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/layer/2.1/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".btn_comfirm").click(function(){
+			if($(".userName_input").val() == "" || $(".userName_input").val() == null || $(".userName_input").val() == undefined){
+				return layer.tips("用户名不能为空",".userName_input");
+			};
+			if($(".userPassword_input").val() == "" || $(".userPassword_input").val() ==null || $(".userPassword_input").val() == undefined){
+				return layer.tips("密码不能为空",".userPassword_input");
+			};
+			if($(".verification_code").val()== "" || $(".verification_code").val()==null || $(".verification_code").val()== undefined){
+				return layer.tips("验证码不能为空",".verification_code")
+			};
+		})
+	</script>
+</html>

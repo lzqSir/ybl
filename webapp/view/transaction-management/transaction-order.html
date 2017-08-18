@@ -1,0 +1,171 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.7/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>交易管理</title>
+</head>
+<body>
+<div class="wrap_container">
+	<div class="select-box1 gap">
+		<form action="" class="form-inline">
+			<div class="form-group col-sm-4 gap">
+				<label class="">日期：</label>
+				<input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}'})" id="logmin" class="input-text Wdate radius" style="width:126px;height:23px;">
+				至
+				<input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d'})" id="logmax" class="input-text Wdate radius" style="width:126px;height:23px">
+			</div>
+			<div class="form-group col-sm-6 gap">
+				<label for="">渠道：</label>
+				<label for="" class="radio-inline">
+					<input type="radio" name="way" id="" value="" />全部
+				</label>
+				<label for="" class="radio-inline col-offset-1">
+					<input type="radio" name="way" id="" value="" />微信App
+				</label>
+				<label for="" class="radio-inline col-offset-1">
+					<input type="radio" name="way" id="" value="" />微信公众号
+				</label>
+				<label for="" class="radio-inline col-offset-1">
+					<input type="radio" name="way" id="" value="" />支付宝
+				</label>
+			</div>
+			<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i>查询</button>
+		</form>
+		<!--<div class="order_code_box">
+			<div class="switch_list">
+				<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i>查询</button>
+			</div>
+		</div>-->
+	</div>
+	<div class="table-responsive table-condensed table-border table-bordered table-bg table-hover" style="width: 50%; margin:20px auto;">
+		<table border="0" cellspacing="0" cellpadding="0" class="table" id="tableExcelOne">
+			<thead>
+				<tr class="text-c">
+					<th>日期</th>
+					<th>渠道</th>
+					<th>金额（元）</th>				
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text-c">
+					<td>2017-05-07</td>
+					<td>微信APP</td>
+					<td>180.00</td>				
+				</tr>
+				<tr class="text-c">
+					<td>2017-05-07</td>
+					<td>微信APP</td>
+					<td>180.00</td>	
+				</tr>
+				<tr class="text-c">
+					<td>2017-05-07</td>
+					<td>微信APP</td>
+					<td>180.00</td>				
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<p class="" style="width:50%;margin:0 auto;"><label for="">总计：</label>1999998.00元</p>
+</div>
+</body>
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../../lib/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="../../lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript">
+	 /**将table导出excel**/
+		 var idTmr;  
+        function  getExplorer() {  
+            var explorer = window.navigator.userAgent ;  
+            //ie  
+            if (explorer.indexOf("MSIE") >= 0) {  
+                return 'ie';  
+            }  
+            //firefox  
+            else if (explorer.indexOf("Firefox") >= 0) {  
+                return 'Firefox';  
+            }  
+            //Chrome  
+            else if(explorer.indexOf("Chrome") >= 0){  
+                return 'Chrome';  
+            }  
+            //Opera  
+            else if(explorer.indexOf("Opera") >= 0){  
+                return 'Opera';  
+            }  
+            //Safari  
+            else if(explorer.indexOf("Safari") >= 0){  
+                return 'Safari';  
+            }  
+        }  
+        function method5(tableid) {  
+            if(getExplorer()=='ie')  
+            {  
+                var curTbl = document.getElementById(tableid);  
+                var oXL = new ActiveXObject("Excel.Application");  
+                var oWB = oXL.Workbooks.Add();  
+                var xlsheet = oWB.Worksheets(1);  
+                var sel = document.body.createTextRange();  
+                sel.moveToElementText(curTbl);  
+                sel.select();  
+                sel.execCommand("Copy");  
+                xlsheet.Paste();  
+                oXL.Visible = true;  
+  
+                try {  
+                    var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");  
+                } catch (e) {  
+                    print("Nested catch caught " + e);  
+                } finally {  
+                    oWB.SaveAs(fname);  
+                    oWB.Close(savechanges = false);  
+                    oXL.Quit();  
+                    oXL = null;  
+                    idTmr = window.setInterval("Cleanup();", 1);  
+                }  
+  
+            }  
+            else  
+            {  
+                tableToExcel(tableid)  
+            }  
+        }  
+        function Cleanup() {  
+            window.clearInterval(idTmr);  
+            CollectGarbage();  
+        }  
+        var tableToExcel = (function() {  
+            var uri = 'data:application/vnd.ms-excel;base64,',  
+                    template = '<html><head><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',  
+                    base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },  
+                    format = function(s, c) {  
+                        return s.replace(/{(\w+)}/g,  
+                                function(m, p) { return c[p]; }) }  
+            return function(table, name) {  
+                if (!table.nodeType) table = document.getElementById(table)  
+                var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}  
+                window.location.href = uri + base64(format(template, ctx))  
+            }  
+        })()  
+</script>
+</html>
