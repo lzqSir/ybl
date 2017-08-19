@@ -25,7 +25,7 @@
 	<context:annotation-config />
 	
 	<!-- 自动扫描注解服务 -->
-	<context:component-scan base-package="com.cdyd" />
+	<context:component-scan base-package="com.ybl.om" />
 
 	<!-- 定义视图解析器 -->
 	<bean id="viewResolver"
@@ -113,12 +113,12 @@
 	<!-- 创建SqlSessionFactory，同时指定数据源 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="com.cdyd"></property>
+		<property name="typeAliasesPackage" value="com.ybl.om.dao"></property>
 		<property name="configLocation" value="/WEB-INF/conf/spring/mybatis-config.xml"></property>
 	</bean>
 	<!-- Mapper接口所在包名，Spring会自动查找其下的Mapper -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.cdyd" />
+		<property name="basePackage" value="com.ybl.om.dao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 </beans>
