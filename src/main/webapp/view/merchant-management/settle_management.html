@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<LINK rel="Bookmark" href="/favicon.ico" >
+		<LINK rel="Shortcut Icon" href="/favicon.ico" />
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="http://lib.h-ui.net/html5.js"></script>
+		<script type="text/javascript" src="http://lib.h-ui.net/respond.min.js"></script>
+		<script type="text/javascript" src="http://lib.h-ui.net/PIE_IE678.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.7/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/icheck/icheck.css"/>
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/theThirdPartyCheck-management/rates_setting.css"/>
+		<!--[if IE 6]>
+		<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+		<script>DD_belatedPNG.fix('*');</script>
+		<![endif]-->
+		<title>结算设置</title>
+	</head>
+	<body ng-controller="mySettleCtr">
+		<div class="container_wrap">
+			<div class="select-box gap">
+				<div style="width: 98%;margin:0 auto;">
+					<button class="btn btn-success radius add-btn col-offset-11" ng-click="addPage()"><i class="Hui-iconfont">&#xe600;</i>新增</button>
+				</div>
+			</div>
+			<div class="table-responsive table-bg table-hover table-condensed table-border table-bordered" style="width: 98%;margin:0 auto;margin-top: 20px;">
+				<table border="0" cellspacing="0" cellpadding="0" class="table">
+					<thead>
+						<tr class="text-c">
+							<th>商户</th>
+							<th>费率</th>
+							<th>结算周期</th>
+							<th>工作日结算</th>
+							<!--<th>月卡结算</th>
+							<th>收支分离</th>
+							<th>手续费结算</th>-->
+							<th>结算起始日</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="text-c" ng-repeat="item in branchList1.settle">
+							<td ng-bind="item.user"></td>
+							<td ng-bind="item.rate"></td>
+							<td ng-bind="item.time"></td>
+							<td ng-bind="item.wrokDate"></td>
+							<!--<td ng-bind="item.monthCard"></td>
+							<td ng-bind="item.icome"></td>
+							<td ng-bind="item.hading"></td>-->
+							<td ng-bind="item.startime"></td>
+							<td><a style="cursor: pointer;color:#00A0E9;"  onclick="Hui_admin_tab(this);" _href="view/merchant-management/list.html" data-title="结算设置-瀚森大厦" ng-bind="item.oper"></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<add-module branch-list="branchList">
+			<form action="" class="form-inline">
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">商户名:</label>
+					<select class="inline input-text radius" style="width:163px">
+						<option></option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">费率：</label>
+					<input type="text" name="" id="" value="" class="inline input-text radius" style="width:163px"/>
+					<label class="con">%</label>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">结算周期：</label>
+					<label class="con">T(当日)+</label>
+					<input type="text" name="" id="" value="" class="inline input-text radius" style="width:50px"/>
+					<label class="con">日</label>
+					<label class="con">，结算T至T+0</label>
+					<!--<input type="text" name="" id="" value="" class="inline input-text radius" style="width:50px"/>-->
+					<label class="con">日的停车费</label>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">结算起始日期：</label>
+					<input type="text" onfocus="WdatePicker()" id="logmax" class="input-text Wdate radius" style="width:163px">
+				</div>
+				<div class="clear"></div>
+				<div class="col-sm-12 col-offset-1 form-group gap">
+					<label for="" class="con col-sm-3">工作日结算：</label>
+					<label for="" class="con">
+						<input type="checkbox" name="" id="" value="" />是
+					</label>
+				</div>
+				<div class="clear"></div>
+			</form>
+		</add-module>
+	</body>
+	<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../../lib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/h-ui/js/service/httpService.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/h-ui/js/controller/settle_manageController.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/h-ui/js/json/hadjiesuan.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/h-ui/js/directive/addModuleDirective.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../lib/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
+	<script type="text/javascript" src="../../lib/My97DatePicker/WdatePicker.js"></script> 
+	<script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script> 
+	<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script> 
+	<script type="text/javascript">
+		$(function(){
+			//新增
+//			$(".add-btn").click(function(){
+//				var index = layer.open({
+//					  type: 1,
+//					  title:'新增结算设置',
+//					  skin: 'yourclass', 
+//					  area: ['620px', '300px'],
+//					  content: '<form action="" class="form-inline">'
+//									+'<div class="form-group gap col-sm-10 col-offset-2">'
+//										+'<label for="" class="con col-sm-3">商户名:</label>'
+//										+'<select class="inline input-text radius" style="width:163px">'
+//											+'<option></option>'
+//										+'</select>'
+//									+'</div>'
+//									+'<div class="clear"></div>'
+//									+'<div class="form-group gap col-sm-10 col-offset-2">'
+//										+'<label for="" class="con col-sm-3">费率：</label>'
+//										+'<input type="text" name="" id="" value="" class="inline input-text radius" style="width:163px"/>'
+//										+'<label class="con">%</label>'
+//									+'</div>'
+//									+'<div class="clear"></div>'
+//									+'<div class="form-group gap col-sm-10 col-offset-2">'
+//										+'<label for="" class="con col-sm-3">结算周期：</label>'
+//										+'<label class="con">T(当日)+</label>'
+//										+'<input type="text" name="" id="" value="" class="inline input-text radius" style="width:50px"/>'
+//										+'<label class="con">日</label>'
+//										+'<label class="con">，结算T至T+</label>'
+//										+'<input type="text" name="" id="" value="" class="inline input-text radius" style="width:50px"/>'
+//										+'<label class="con">日的停车费</label>'
+//									+'</div>'
+//									+'<div class="clear"></div>'
+//									+'<div class="form-group gap col-sm-10 col-offset-2">'
+//										+'<label for="" class="con col-sm-3">结算起始日期：</label>'
+//										+'<input type="text" onfocus="WdatePicker()" id="logmax" class="input-text Wdate radius" style="width:163px">'
+//									+'</div>'
+//									+'<div class="clear"></div>'
+//									+'<div class="text-c">'
+//										+'<button type="button" class="btn btn-success radius text-c save-btn" style="margin-top: 30px;"><i class="Hui-iconfont">&#xe632;</i>保存</button>'
+//									+'</div>'
+//								+'</form>'
+//					});
+////					layer.full(index);
+//					$(".save-btn").click(function(){
+//						layer.confirm('确定保存吗？', {
+//							  btn: ['保存','取消'],
+//							  title:"保存",
+//							  skin:"radius-box"
+//							}, function(){
+//							  layer.msg('已保存', {icon: 1});
+//							  layer.closeAll()
+//							}, function(){
+//							 
+//						});	
+//					})
+//		
+//			});
+			
+			//查看
+			$(".look-btn").click(function(){
+				var index = layer.open({
+					  type: 1,
+					  title:'结算设置-瀚森大厦',
+					  skin: 'yourclass', 
+					  maxmin: true,
+					  content: '<div class="table-responsive" style="width:98%;margin:0 auto;">'
+									+'<div style="margin:10px">'
+										+'<button class="btn btn-success radius add-btn col-offset-11"><i class="Hui-iconfont">&#xe600;</i>新增</button>'
+									+'</div>'
+									+'<table border="0" cellspacing="0" cellpadding="0" class="table table-bg table-hover table-border table-bordered table-condensed " >'
+										+'<thead>'
+											+'<tr class="text-c">'
+												+'<th>操作人</th>'
+												+'<th>新增时间</th>'
+												+'<th>结算起始日</th>'
+												+'<th>费率</th>'
+												+'<th>结算周期</th>'
+												+'<th>工作日结算</th>'
+												+'<th>月卡结算</th>'
+												+'<th>收支分离</th>'
+												+'<th>手续费结算</th>'
+												+'<th>状态</th>'
+												+'<th>操作</th>'
+											+'</tr>'
+										+'</thead>'
+										+'<tbody>'
+											+'<tr class="text-c">'
+												+'<td>dudu</td>'
+												+'<td>2017-09-01 20:23:56</td>'
+												+'<td>2017-09-03</td>'
+												+'<td>1%</td>'
+												+'<td>T+7结算T日资金</td>'
+												+'<td>否</td>'
+												+'<td>分期结算</td>'
+												+'<td>否</td>'
+												+'<td>按月结算</td>'
+												+'<td>未生效</td>'
+												+'<td style="color:#00ccff;cursor: pointer;" class="dele-btn">删除</td>	'					
+											+'</tr>'
+											+'<tr class="text-c">'
+												+'<td>dudu</td>'
+												+'<td>2017-09-01 20:23:56</td>'
+												+'<td>2017-09-03</td>'
+												+'<td>1%</td>'
+												+'<td>T+7结算T日资金</td>'
+												+'<td>否</td>'
+												+'<td>分期结算</td>'
+												+'<td>否</td>'
+												+'<td>按月结算</td>'
+												+'<td>未生效</td>'
+												+'<td style="color:#00ccff;cursor: pointer;" class="dele-btn">删除</td>	'					
+											+'</tr>'
+											+'<tr class="text-c danger">'
+												+'<td>dudu</td>'
+												+'<td>2017-09-01 20:23:56</td>'
+												+'<td>2017-09-03</td>'
+												+'<td>1%</td>'
+												+'<td>T+7结算T日资金</td>'
+												+'<td>否</td>'
+												+'<td>分期结算</td>'
+												+'<td>否</td>'
+												+'<td>按月结算</td>'
+												+'<td>已生效</td>'
+												+'<td style="color:#00ccff;cursor: pointer;"></td>	'					
+											+'</tr>'
+										+'</tbody>'
+									+'</table>'
+								+'</div>'
+					});
+					layer.full(index);
+					$(".add-btn").click(function(){
+						var indexAdd = layer.open({
+						  type: 1,
+						  title:'新增结算设置-瀚森大厦',
+						  skin: 'yourclass', 
+						  content: '<form action="" class="form-inline">'
+										+'<div class="form-group gap col-sm-6 col-offset-4">'
+											+'<label for="" class="con col-sm-3">商户名:</label>'
+											+'<input type="text" name="" id="" value="" class="inline input-text radius" style="width:163px"/>'
+										+'</div>'
+										+'<div class="clear"></div>'
+										+'<div class="form-group gap col-sm-6 col-offset-4">'
+											+'<label for="" class="con col-sm-3">费率：</label>'
+											+'<input type="text" name="" id="" value="" class="inline input-text radius" style="width:163px"/>'
+											+'<label class="con">%</label>'
+										+'</div>'
+										+'<div class="clear"></div>'
+										+'<div class="form-group gap col-sm-6 col-offset-4">'
+											+'<label for="" class="con col-sm-3">结算周期：</label>'
+											+'<label class="con">T(当日)+</label>'
+											+'<input type="text" name="" id="" value="" class="inline input-text radius" style="width:50px"/>'
+											+'<label class="con">日</label>'
+											+'<label class="con">，结算T至T+</label>'
+											+'<input type="text" name="" id="" value="" class="inline input-text radius" style="width:50px"/>'
+											+'<label class="con">日的停车费</label>'
+										+'</div>'
+										+'<div class="clear"></div>'
+										+'<div class="form-group gap col-sm-6 col-offset-4">'
+											+'<label for="" class="con col-sm-3">结算起始日期：</label>'
+											+'<input type="text" onfocus="WdatePicker()" id="logmax" class="input-text Wdate radius" style="width:163px">'
+										+'</div>'
+										+'<div class="clear"></div>'
+										+'<div class="text-c">'
+											+'<button type="button" class="btn btn-success radius text-c save-list" style="margin-top: 30px;"><i class="Hui-iconfont">&#xe632;</i>保存</button>'
+										+'</div>'
+									+'</form>'
+						});
+						layer.full(indexAdd);
+						$(".save-list").click(function(){
+							layer.confirm('确定保存吗？', {
+							  btn: ['保存','取消'],
+							  title:"保存",
+							  skin:"radius-box"
+							}, function(){
+							  layer.msg('已保存', {icon: 1});
+							  layer.close(indexAdd)
+							}, function(){
+							 
+							});	
+						})
+					})
+					
+				/**删除框**/
+					$(".dele-btn").click(function(){
+						layer.confirm('确定删除吗？', {
+							  btn: ['确定','取消'],
+							  skin: 'yourclass'
+							}, function(){
+							  layer.msg('已删除', {icon: 1});
+							}, function(){
+		
+							});
+					});	
+		
+			});
+		})
+	</script>
+</html>
