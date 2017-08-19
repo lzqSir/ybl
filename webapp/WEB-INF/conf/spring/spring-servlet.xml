@@ -93,7 +93,7 @@
 
 	<!-- 获取jdbc上下文配置信息 -->
 <!-- 	<context:property-placeholder location="classpath:jdbc.properties" /> -->
-	<context:property-placeholder location="/WEB-INF/conf/jdbc.properties" />
+	<context:property-placeholder location="classpath:com/ybl/conf/jdbc.properties" />
 	<!--	(事务管理)transaction manager, use JtaTransactionManager for global tx	-->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
