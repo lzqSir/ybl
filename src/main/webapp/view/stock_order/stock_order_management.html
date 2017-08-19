@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<LINK rel="Bookmark" href="/favicon.ico" >
+		<LINK rel="Shortcut Icon" href="/favicon.ico" />
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="http://lib.h-ui.net/html5.js"></script>
+		<script type="text/javascript" src="http://lib.h-ui.net/respond.min.js"></script>
+		<script type="text/javascript" src="http://lib.h-ui.net/PIE_IE678.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.7/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/icheck/icheck.css"/>
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/theThirdPartyCheck-management/rates_setting.css"/>
+		<!--[if IE 6]>
+		<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+		<script>DD_belatedPNG.fix('*');</script>
+		<![endif]-->
+		<title>库存转移订单</title>
+	</head>
+	<body ng-controller="myBusiCtr">
+		<div class="container_wrap">
+			<div class="select-box gap">
+				<div style="width: 98%;margin:0 auto;">
+					<button class="btn btn-success radius add-btn col-offset-11" ng-click="addPage()"><i class="Hui-iconfont">&#xe600;</i>新增</button>
+				</div>
+			</div>
+			<div class="table-responsive table-bg table-hover table-condensed table-border table-bordered" style="width: 98%;margin:0 auto;margin-top: 20px;">
+				<table border="0" cellspacing="0" cellpadding="0" class="table">
+					<thead>
+						<tr class="text-c">
+							<th>商户</th>
+							<th>商户停车场</th>
+							<th>银行</th>
+							<th>支行</th>
+							<th>账号</th>
+							<th>开户名</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="text-c" ng-repeat='item in busin'>
+							<td ng-bind="item.name"></td>
+							<td ng-bind="item.carport">瀚森大厦</td>
+							<td ng-bind="item.blank">建设银行</td>
+							<td ng-bind="item.blankOther">广东省深圳市朗山路支行</td>
+							<td ng-bind="item.num">6222 0333 1234 1234</td>
+							<td ng-bind="item.blankName">深圳恒达物业有限公司</td>
+							<td><span style="cursor: pointer;color:#00A0E9;" class="change-btn" ng-bind="item.ope1" ng-click="changeContent($index)">修改</span><span style="cursor: pointer;color:#00A0E9;margin-left:10px;" class="dele-btn" ng-bind="item.ope2" ng-click="dele($index)">删除</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<new-page branch-data="branchData" ng-if="module">
+			<form action="" class="form-inline" ng-repeat="item in branchData">
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">商户名:</label>
+					<input type="text" name="" id="user-name" value="{{item.name}}" class="inline input-text radius"/>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">商户停车场:</label>
+					<select class="inline input-text radius" style="width:163px">
+						<option ng-bind="item.carport"></option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">银行：</label>
+					<input type="text" name="" id="" value="{{item.blank}}" class="inline input-text radius"/>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">支行：</label>
+					<select name="" class="inline input-text radius" style="width:120px;">
+						<option value="">{{item.blankOther0}}</option>
+					</select>
+					<select name="" class="inline input-text radius" style="width:120px;">
+						<option value="">{{item.blankOther1}}</option>
+					</select>
+					<input type="text" name="" id="" value="{{item.blankOther2}}" class="inline input-text radius" style="width:120px;"/>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">账户：</label>
+					<input type="text" name="" id="" value="{{item.num}}" class="inline input-text radius"/>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-12 col-offset-1">
+					<label for="" class="con col-sm-3">开户名：</label>
+					<input type="text" name="" id="" value="{{item.blankName}}" class="inline input-text radius"/>
+				</div>
+				<div class="clear"></div>
+			</form>
+		</new-page>
+		<add-module branch-list="branchList" ng-if="newAdd">
+			<form action="" class="form-inline">
+				<div class="form-group gap col-sm-9 col-offset-2">
+					<label for="" class="con col-sm-3">商户名:</label>
+					<input type="text" name="" id="" value="" class="inline input-text radius"/>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-9 col-offset-2">
+					<label for="" class="con col-sm-3">商户停车场:</label>
+					<select class="inline input-text radius" style="width:163px">
+						<option>豪森大厦</option>
+						<option>水吧小区</option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-9 col-offset-2">
+					<label for="" class="con col-sm-3">银行：</label>
+					<input type="text" name="" id="" value="" class="inline input-text radius"/>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-9 col-offset-2">
+					<label for="" class="con col-sm-3">支行：</label>
+					<select name="" class="inline input-text radius" style="width:100px;">
+						<option value=""></option>
+					</select>
+					<select name="" class="inline input-text radius" style="width:100px;">
+						<option value=""></option>
+					</select>
+					<input type="text" name="" id="" value="" class="inline input-text radius" style="width:100px;"/>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-9 col-offset-2">
+					<label for="" class="con col-sm-3">账户：</label>
+					<input type="text" name="" id="" value="" class="inline input-text radius"/>
+				</div>
+				<div class="clear"></div>
+				<div class="form-group gap col-sm-9 col-offset-2">
+					<label for="" class="con col-sm-3">开户名：</label>
+					<input type="text" name="" id="" value="" class="inline input-text radius"/>
+				</div>
+				<div class="clear"></div>
+			</form>
+		</add-module>
+	</body>
+	<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script> 
+	<script src="../../lib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/h-ui/js/service/httpService.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/h-ui/js/json/hadjiesuan.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/h-ui/js/controller/business_manageController.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/h-ui/js/directive/changeDirective.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/h-ui/js/directive/addModuleDirective.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../lib/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
+	<script type="text/javascript" src="../../lib/My97DatePicker/WdatePicker.js"></script> 
+	<script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script> 
+	<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script> 
+</html>
