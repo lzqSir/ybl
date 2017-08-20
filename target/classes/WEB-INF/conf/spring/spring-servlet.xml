@@ -93,7 +93,7 @@
 
 	<!-- 获取jdbc上下文配置信息 -->
 <!-- 	<context:property-placeholder location="classpath:jdbc.properties" /> -->
-	<context:property-placeholder location="classpath:src/com/ybl/conf/jdbc.properties" />
+	<context:property-placeholder location="classpath:jdbc.properties" />
 	<!--	(事务管理)transaction manager, use JtaTransactionManager for global tx	-->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -106,9 +106,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://112.74.68.249:3306/cdyd?useUnicode=true&amp;characterEncoding=UTF-8" />
-		<property name="username" value="test" />
-		<property name="password" value="123456" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
 	</bean>
 	<!-- 创建SqlSessionFactory，同时指定数据源 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

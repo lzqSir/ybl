@@ -1,0 +1,373 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.7/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/parking_list.css"/>
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>订单管理</title>
+</head>
+<body>
+<div class="container" style="width:96%;">
+   <!-- 	<div class="function_btn" style="font-weight:bold;">
+   		<span class="basic_msg tip_msg">基本信息</span>
+   		<span class="charge_msg tip_msg" style="background:#e8e8e8;">收费信息</span>
+   	</div> -->
+   	
+   	<div class="HuiTab">
+		<div class="tabBar clearfix">
+			<span>销售订单</span>
+			<span class="charge_msg">订单项目</span>
+		</div>
+	</div>
+   	<div class="tabCon particular_msg">
+	   	<form id="carparkEditForm" class="form form-horizontal">
+	   		<input type="hidden" name="chargeListStr" id="chargeListStr"/>
+	   		<input type="hidden" name="id" id="id" value="${carparkEdit.id}"/>
+			<input type="hidden" name="park_id" id="park_id" value="${carparkEdit.park_id}" />
+   			<input type="hidden" name="secret_key" id="secret_key" value="${carparkEdit.secret_key}" />
+   				
+       		<div class="row cl">
+       			<label class="form-label col-xs-2 col-sm-2 text-overflow">文件号码<span class="c-red"> *</span></label>
+	       		<div class="formControls col-xs-4 col-sm-4">
+	       			<input type="text" name="carpark_name" id="carpark_name" value="35410" 
+	       				class="input-text radius size-S" placeholder="必填" required="true" maxlength="100"/>
+	       		</div>
+       			<label class="form-label col-xs-2 col-sm-2 text-overflow">订单类型<span class="c-red"> *</span></label>
+	       		<div class="formControls col-xs-4 col-sm-4">
+       				<select class="select select-box input-text radius size-S" required="true">
+	       				<option selected="selected">EB标准订单</option>
+       				</select>
+	       		</div>
+	   		</div>
+	   		
+	   		<div class="row cl">
+       			<label class="form-label col-xs-2 col-sm-2 text-overflow">PO单号<span class="c-red"> *</span></label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	       			<input type="text" name="park_type" id="park_type" value="2017025142" 
+	       				class="input-text radius size-S" placeholder="必填：10位数字" required="true" maxlength="60"/>
+	       		</div>
+       			<label class="form-label col-xs-2 col-sm-2 text-overflow">采购单日期<span class="c-red"> *</span></label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	       			<input type="text" name="park_type" id="park_type" value="2017-08-15" 
+	       				class="input-text radius size-S" placeholder="必填：10位数字" required="true" onfocus="WdatePicker()"/>
+	       		</div>
+	   		</div>
+	   		
+	   		
+	   		<div class="row cl">
+   				<label class="form-label col-xs-2 col-sm-2 text-overflow">备注&nbsp;&nbsp;&nbsp;</label>
+	       		<div class="formControls col-xs-4 col-sm-4" >
+	   				<textarea rows="2" name="beck_merchant_id" class="textarea radius size-M" value="备注信息" ></textarea>
+	   			</div>
+	   		</div>
+	   		<div class="row cl">
+       			<label class="form-label col-xs-2 col-sm-2 text-overflow">分销渠道<span class="c-red"> *</span></label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	       			<select name="province" id="s1" class="select select-box input-text radius size-S"  required="true">
+						<option>批发-零售商</option>
+					</select>
+	       		</div>
+       			<label class="form-label col-xs-2 col-sm-2 text-overflow">产品组<span class="c-red"> *</span></label>
+	       		<div class="formControls col-xs-4 col-sm-4">
+					<select name="province" id="s1" class="select select-box input-text radius size-S"  required="true">
+						<option>手表业务</option>
+					</select>
+	       		</div>
+	   		</div>
+	   		<div class="row cl">
+   				<label class="form-label col-xs-2 col-sm-2 text-overflow">渠道<span class="c-red"> *</span></label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	   				<input type="text" name="free_time_minute" value="宁波市恒达钟表有限公司" 
+	   					class="input-text radius size-S" />
+	   			</div>
+  				<label class="form-label col-xs-2 col-sm-2 text-overflow">门店<span class="c-red"> *</span></label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	   			<select name="province" id="s1" class="select select-box input-text radius size-S"  required="true">
+						<option>嵊州鹿山广场</option>
+					</select>
+	   			</div>
+	   		</div>
+	   		<div class="row cl">
+   				<label class="form-label col-xs-2 col-sm-2 text-overflow">订单理由&nbsp;&nbsp;&nbsp;</label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	   				<input type="text" name="first_charge_minute" id="first_charge_minute" value="订单理由" 
+	   					class="input-text radius size-S" placeholder="订单理由" />
+	   			</div>
+   				<label class="form-label col-xs-2 col-sm-2 text-overflow">库存位置<span class="c-red"> *</span></label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	   				<select name="province" id="s1" class="select select-box input-text radius size-S"  required="true">
+						<option>0001_成品</option>
+					</select>
+	   			</div>
+	   		</div>
+	   		<div class="row cl">
+   				<label class="form-label col-xs-2 col-sm-2 text-overflow">销售职员<span class="c-red"> *</span></label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+		   				<input type="text" name="weixin_onlie_pay" id="weixin_onlie_pay_yes" class="input-text radius size-S"/>
+	   			</div>
+   				<label class="form-label col-xs-2 col-sm-2 text-overflow">销售办事处&nbsp;&nbsp;&nbsp;</label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	   				<select name="province" id="s1" class="select select-box input-text radius size-S"  required="true">
+						<option>3280_浙江办</option>
+					</select>
+	   			</div>
+	   		</div>
+
+	   		<div class="row cl">
+   				<label class="form-label col-xs-2 col-sm-2 text-overflow">取消原因&nbsp;&nbsp;&nbsp;</label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+		   				<input type="text" name="yuetong_etc_pay" id="yuetong_etc_pay_yes" class="input-text radius size-S" value="取消原因请在这里填写"/>
+	   			</div>
+	   		</div>
+	   		<div class="row cl">
+   				<label class="form-label col-xs-2 col-sm-2 text-overflow" id="yuetong_park_code_span">总数量&nbsp;&nbsp;&nbsp;</label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	   				<input type="text" name="yuetong_park_code" id="yuetong_park_code" value="0" 
+	   					class="input-text radius size-S" placeholder="请填写数量" required="true" number="true"/>
+	   			</div>
+   				<label class="form-label col-xs-2 col-sm-2 text-overflow" id="yuetong_owner_code_span">总金额(元)&nbsp;&nbsp;&nbsp;</label>
+	   			<div class="formControls col-xs-4 col-sm-4">
+	   				<input type="text" name="yuetong_owner_code" id="yuetong_owner_code" value="150000" readonly="readonly"
+	   					class="input-text radius size-S" onkeyup="value=value.replace(/[^\d]/g,'') " 
+						onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+	   			</div>
+	   		</div>
+	   		
+	   
+       	
+	   		
+	   	</form>
+	   			<!-- 订单行 -->
+   		<div class="cl mt-5 mb-5">
+   			<button id="addItem" class="btn btn-default size-S Hui-iconfont">&#xe600; 新增订单行项目</button>
+   		</div>
+   		<table class="table table-border table-bordered">
+			<thead>
+				<tr class="text-c">
+					<th>操作</th>
+					<th>订单编号</th>
+					<th>产品</th>
+					<th>数量</th>
+					<th>交货数量</th>
+					<th>标准单价</th>
+					<th>总金额</th>
+				</tr>
+			</thead>
+			<tbody id="smallTbody">
+					<tr>
+				        <td class="text-c">
+					   		<a style="color:#0EC6FF;" class="smallDelRow" href="#">删除</a>
+					   	</td>
+					   	<td>
+					   		<input type="text" name="id" value="10000001-20170815-00022" class="input-text radius size-S" />
+					   	</td>
+					   	<td>
+					   	<input type="text" name="id" value="GS9160W" class="input-text radius size-S"/>
+					   	</td>
+		            	<td>
+					   		<input type="text" name="id" value="4" class="input-text radius size-S" />
+					   	</td>
+			            <td>
+					   		<input type="text" name="id" value="0" class="input-text radius size-S" />
+					   	</td>
+					   	<td>
+					   		<input type="text" name="id" value="5000" class="input-text radius size-S"/>
+					   	</td>
+					   	<td>
+					   		<input type="text" name="id" value="20000" class="input-text radius size-S" />
+					   	</td>
+					</tr>  
+			</tbody>
+		</table>
+   	</div>
+   	
+   	
+   	
+   	
+   	
+   	<div class="mt-10 mb-10" style="display:table; margin-left:auto; margin-right:auto;">
+		<button id="saveBtn" type="button" class="save_btn btn btn-default size-S Hui-iconfont">&#xe632; 保存</button>
+		<button id="cancelBtn" type="button" class="close_btn btn btn-default size-S Hui-iconfont" style="margin-left:10px;">&#xe6a6; 关闭</button>
+	</div>
+</div>
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="../../lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="../../static/h-ui/js/geo.js"></script>
+<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script> 
+<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/messages_zh.min.js"></script> 
+<script type="text/javascript">
+//判断是否新增
+var isCreate = ($("#id").val() == null || $("#id").val() == "");
+if (isCreate) {
+	$(".charge_msg").hide();	
+}
+$(function() {
+	$.Huitab(".tabBar span",".tabCon","current","click","0");
+	// 字母数字验证
+	jQuery.validator.addMethod("letterNumberValidator", function(value, element) {   
+		var strExp = /^[A-Za-z0-9]+$/;
+	    return strExp.test(value) || value == null || value == "";
+	}, "请输入字母和数字");
+	
+});
+
+//编辑时下拉框赋值
+window.onload = function() {
+	// 初始化省市区下拉框.
+	// 默认值
+	// 初始化下拉框
+	/* $.ajax({
+		url:".do" , 
+		type:"POST" , 
+		dataType:"json",
+		success:function(data) {
+			var group_id = '${carparkEdit.group_id}';
+			//遍历 json为[{"id":1,"group_name":"万科集团","group_type":1,"created_time":"Feb 28, 2017 8:08:08 AM","last_update_time":"Feb 28, 2017 8:08:08 AM"},{"id":2,"group_name":"哈哈哈集团","group_type":1,"created_time":"Feb 28, 2017 8:14:49 PM","last_update_time":"Mar 1, 2017 10:42:19 AM"},{"id":3,"group_name":"呵呵呵集团","group_type":1,"created_time":"Feb 28, 2017 8:18:53 PM","last_update_time":"Mar 1, 2017 10:42:08 AM"},{"id":4,"group_name":"嘿嘿嘿集团","group_type":1,"created_time":"Feb 28, 2017 8:19:13 PM","last_update_time":"Mar 1, 2017 10:41:58 AM"},{"id":7,"group_name":"帕克斯","group_type":0,"created_time":"Mar 1, 2017 1:49:10 PM","last_update_time":"Mar 1, 2017 1:49:10 PM"},{"id":8,"group_name":"DDDD","group_type":1,"created_time":"Mar 2, 2017 11:58:47 AM","last_update_time":"Mar 2, 2017 11:58:47 AM"},{"id":9,"group_name":"wwww","group_type":0,"created_time":"Mar 2, 2017 12:00:05 PM","last_update_time":"Mar 2, 2017 12:00:05 PM"},{"id":10,"group_name":"SSS","group_type":0,"created_time":"Mar 2, 2017 12:02:03 PM","last_update_time":"Mar 2, 2017 12:02:03 PM"}]
+			$.each(data, function (index, item) {  
+				var id = data[index].id; 
+				var text = data[index].group_name; 
+				if (id == group_id) {
+					$("#group_id").append("<option value='" + id + "' selected='selected'>" + text + "</option>");
+					if (group_id == 1) {
+						$(".wankeInfoFlag").show();
+					}
+				} else {
+					$("#group_id").append("<option value='" + id + "'>" + text + "</option>");
+				}
+			}); 
+		}, 
+		error:function(XMLHttpRequest,textStatus, errorThrown) { 
+		}
+	}); */
+	
+	//初始化wanke_parking_code下拉框
+	
+
+};
+
+//初始化wanke_parking_id下拉框
+
+
+/**保存**/
+$("#saveBtn").click(function() {
+	if (!$("#carparkEditForm").valid()) {
+		return false;
+	}
+	if (!isCreate) {
+		var data = "[";// 定义数据变量
+		// 小型车
+		$("#smallTbody").find("tr").each(function(i, dom) {// 遍历表格中的input、select等标签
+			data += "{";
+			$(dom).find("input, select").each(function(i, ele) {
+				data += "\"" + ele.name + "\":\"" + ele.value + "\",";
+			});
+			data += "\"car_type\":\"0\",\"max_cost_small\":\""+ $("#max_cost_small").val() +"\"},";
+		});
+		// 大型车
+		$("#bigTbody").find("tr").each(function(i, dom) {// 遍历表格中的input、select等标签
+			data += "{";
+			$(dom).find("input, select").each(function(i, ele) {
+				data += "\"" + ele.name + "\":\"" + ele.value + "\",";
+			});
+			data += "\"car_type\":\"1\",\"max_cost_big\":\""+ $("#max_cost_big").val() +"\"},";
+		});
+		if (data.length != 1) {// 如果取出了数据，删除多余的符号
+			data = data.substring(0, data.length - 1);// 删除多余的符号','
+		}
+		data += "]";// 添加结束符
+		//data = eval("(" + data + ")");// 将数据转换成json对象
+		//alert(JSON.stringify(data))
+		$("#chargeListStr").val(data);
+	}
+	
+	$.ajax({
+		url :  isCreate ? "../../systemCarpark/add.do" : "../../systemCarpark/edit.do",
+		type : "POST",
+		data : $("#carparkEditForm").serialize(),
+		beforeSend : function(txt) {
+			layer.load();
+			$(".save_btn").attr("disabled", true);
+		},
+		success : function(txt) { // 回调方法 
+			isCreate ? layer.msg('添加成功！',{icon:1, time:1500}) : layer.msg('修改成功！',{icon:1, time:1500});
+			setTimeout(function() {
+				window.parent.location.reload();
+			}, 1500);
+		},
+		error : function(msg) {
+			layer.msg('请求失败，请稍后再试！',{icon:2, time:1500});
+		},
+		complete : function (XMLHttpRequest, textStatus) {
+			layer.closeAll('loading');
+			setTimeout(function() {
+				$(".save_btn").attr("disabled", false);
+			},1600);
+		}
+	});
+});
+
+// 关闭
+$("#cancelBtn").click(function() {
+	layer_close();
+});
+
+/**小型车增加时间段**/
+	$("#addItem").click(function(){
+		var newRow = '<tr>'
+				+'<td class="text-c">'
+					+'<a style="color:#0EC6FF;" class="smallDelRow" href="#">删除</a>'
+				+'</td>'
+				+'<td>'
+					+'<input type="text" name="id" value="10000001-20170815-00022" class="input-text radius size-S" />'
+				+'</td>'
+				+'<td >'
+					+'<input type="text" name="id" value="GS9160W" class="input-text radius size-S" />'
+				+'</td>'
+				+'<td >'
+					+'<input type="text" name="cost_time" class="input-text radius size-S" value="4"/>'
+				+'</td>'
+				+'<td>'
+					+'<input type="text" name="cost_time" class="input-text radius size-S" value="0"/>'
+				+'</td>'
+				+'<td class="text-r">'
+					+'<input type="text" name="cost_info" class="input-text radius size-S" value="5000"/>'
+				+'</td>'
+				+'<td class="text-r">'
+					+'<input type="text" name="cost_info" class="input-text radius size-S" value="20000" />'
+				+'</td>'
+			+'</tr>';
+		$("#smallTbody").append(newRow);
+		/**小型车删除时间段 用于删除点击新增按钮添加的数据**/
+		$(".smallDelRow").click(function() {
+			$(this).parent().parent().remove();
+		});
+	});
+	// 编辑时默认有数据，删除调用此方法
+	/**小型车删除时间段**/
+	$(".smallDelRow").click(function() {
+		$(this).parent().parent().remove();
+	});
+</script>
+</body>
+</html>
