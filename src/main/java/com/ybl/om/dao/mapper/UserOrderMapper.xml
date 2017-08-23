@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ybl.om.dao.UserOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.ybl.om.model.UserOrder" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="order_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="carpark_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="goods_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="subject" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="body" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="car_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="order_type" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="enter_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="should_charge" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="disount_fee" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="already_paid" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="recharge_period_quantity" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="recharge_period_unit" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="customer" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="recommend" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="start_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="end_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="order_state" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="pay_success_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="created_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="expire_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="total_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="discount_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="pay_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="service_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pay_method" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="pay_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pay_os" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="promotion_coupon_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="coupon_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="third_merchant_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="beck_merchant_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="timeout_task_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="promotion_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="monthrent_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="coupon_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="refund_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="refund_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="refund_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="coupon_group_id" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="promotion_group_id" jdbcType="TINYINT" javaType="java.lang.Byte" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_no, user_id, carpark_id, goods_id, subject, body, car_no, order_type, enter_time, 
+    should_charge, disount_fee, already_paid, recharge_period_quantity, recharge_period_unit, 
+    customer, phone, recommend, remark, start_date, end_date, order_state, pay_success_time, 
+    created_time, expire_time, total_money, discount_money, pay_money, service_type, 
+    pay_method, pay_code, pay_os, promotion_coupon_code, coupon_code, third_merchant_id, 
+    beck_merchant_id, timeout_task_id, promotion_id, monthrent_id, coupon_money, refund_no, 
+    refund_money, refund_time, coupon_group_id, promotion_group_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from bk_user_order_20170701_20170731
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from bk_user_order_20170701_20170731
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ybl.om.model.UserOrder" >
+    insert into bk_user_order_20170701_20170731 (id, order_no, user_id, 
+      carpark_id, goods_id, subject, 
+      body, car_no, order_type, 
+      enter_time, should_charge, disount_fee, 
+      already_paid, recharge_period_quantity, recharge_period_unit, 
+      customer, phone, recommend, 
+      remark, start_date, end_date, 
+      order_state, pay_success_time, created_time, 
+      expire_time, total_money, discount_money, 
+      pay_money, service_type, pay_method, 
+      pay_code, pay_os, promotion_coupon_code, 
+      coupon_code, third_merchant_id, beck_merchant_id, 
+      timeout_task_id, promotion_id, monthrent_id, 
+      coupon_money, refund_no, refund_money, 
+      refund_time, coupon_group_id, promotion_group_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{carparkId,jdbcType=INTEGER}, #{goodsId,jdbcType=BIGINT}, #{subject,jdbcType=VARCHAR}, 
+      #{body,jdbcType=VARCHAR}, #{carNo,jdbcType=VARCHAR}, #{orderType,jdbcType=TINYINT}, 
+      #{enterTime,jdbcType=TIMESTAMP}, #{shouldCharge,jdbcType=DECIMAL}, #{disountFee,jdbcType=DECIMAL}, 
+      #{alreadyPaid,jdbcType=DECIMAL}, #{rechargePeriodQuantity,jdbcType=INTEGER}, #{rechargePeriodUnit,jdbcType=TINYINT}, 
+      #{customer,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{recommend,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{orderState,jdbcType=TINYINT}, #{paySuccessTime,jdbcType=TIMESTAMP}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{expireTime,jdbcType=TIMESTAMP}, #{totalMoney,jdbcType=DECIMAL}, #{discountMoney,jdbcType=DECIMAL}, 
+      #{payMoney,jdbcType=DECIMAL}, #{serviceType,jdbcType=VARCHAR}, #{payMethod,jdbcType=TINYINT}, 
+      #{payCode,jdbcType=VARCHAR}, #{payOs,jdbcType=VARCHAR}, #{promotionCouponCode,jdbcType=VARCHAR}, 
+      #{couponCode,jdbcType=VARCHAR}, #{thirdMerchantId,jdbcType=VARCHAR}, #{beckMerchantId,jdbcType=VARCHAR}, 
+      #{timeoutTaskId,jdbcType=BIGINT}, #{promotionId,jdbcType=BIGINT}, #{monthrentId,jdbcType=BIGINT}, 
+      #{couponMoney,jdbcType=DECIMAL}, #{refundNo,jdbcType=VARCHAR}, #{refundMoney,jdbcType=DECIMAL}, 
+      #{refundTime,jdbcType=TIMESTAMP}, #{couponGroupId,jdbcType=TINYINT}, #{promotionGroupId,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ybl.om.model.UserOrder" >
+    insert into bk_user_order_20170701_20170731
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="carparkId != null" >
+        carpark_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="carNo != null" >
+        car_no,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="enterTime != null" >
+        enter_time,
+      </if>
+      <if test="shouldCharge != null" >
+        should_charge,
+      </if>
+      <if test="disountFee != null" >
+        disount_fee,
+      </if>
+      <if test="alreadyPaid != null" >
+        already_paid,
+      </if>
+      <if test="rechargePeriodQuantity != null" >
+        recharge_period_quantity,
+      </if>
+      <if test="rechargePeriodUnit != null" >
+        recharge_period_unit,
+      </if>
+      <if test="customer != null" >
+        customer,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="recommend != null" >
+        recommend,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="paySuccessTime != null" >
+        pay_success_time,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="expireTime != null" >
+        expire_time,
+      </if>
+      <if test="totalMoney != null" >
+        total_money,
+      </if>
+      <if test="discountMoney != null" >
+        discount_money,
+      </if>
+      <if test="payMoney != null" >
+        pay_money,
+      </if>
+      <if test="serviceType != null" >
+        service_type,
+      </if>
+      <if test="payMethod != null" >
+        pay_method,
+      </if>
+      <if test="payCode != null" >
+        pay_code,
+      </if>
+      <if test="payOs != null" >
+        pay_os,
+      </if>
+      <if test="promotionCouponCode != null" >
+        promotion_coupon_code,
+      </if>
+      <if test="couponCode != null" >
+        coupon_code,
+      </if>
+      <if test="thirdMerchantId != null" >
+        third_merchant_id,
+      </if>
+      <if test="beckMerchantId != null" >
+        beck_merchant_id,
+      </if>
+      <if test="timeoutTaskId != null" >
+        timeout_task_id,
+      </if>
+      <if test="promotionId != null" >
+        promotion_id,
+      </if>
+      <if test="monthrentId != null" >
+        monthrent_id,
+      </if>
+      <if test="couponMoney != null" >
+        coupon_money,
+      </if>
+      <if test="refundNo != null" >
+        refund_no,
+      </if>
+      <if test="refundMoney != null" >
+        refund_money,
+      </if>
+      <if test="refundTime != null" >
+        refund_time,
+      </if>
+      <if test="couponGroupId != null" >
+        coupon_group_id,
+      </if>
+      <if test="promotionGroupId != null" >
+        promotion_group_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="carparkId != null" >
+        #{carparkId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="carNo != null" >
+        #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=TINYINT},
+      </if>
+      <if test="enterTime != null" >
+        #{enterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shouldCharge != null" >
+        #{shouldCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="disountFee != null" >
+        #{disountFee,jdbcType=DECIMAL},
+      </if>
+      <if test="alreadyPaid != null" >
+        #{alreadyPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargePeriodQuantity != null" >
+        #{rechargePeriodQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="rechargePeriodUnit != null" >
+        #{rechargePeriodUnit,jdbcType=TINYINT},
+      </if>
+      <if test="customer != null" >
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=TINYINT},
+      </if>
+      <if test="paySuccessTime != null" >
+        #{paySuccessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTime != null" >
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalMoney != null" >
+        #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="discountMoney != null" >
+        #{discountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payMoney != null" >
+        #{payMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null" >
+        #{payMethod,jdbcType=TINYINT},
+      </if>
+      <if test="payCode != null" >
+        #{payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payOs != null" >
+        #{payOs,jdbcType=VARCHAR},
+      </if>
+      <if test="promotionCouponCode != null" >
+        #{promotionCouponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCode != null" >
+        #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdMerchantId != null" >
+        #{thirdMerchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="beckMerchantId != null" >
+        #{beckMerchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="timeoutTaskId != null" >
+        #{timeoutTaskId,jdbcType=BIGINT},
+      </if>
+      <if test="promotionId != null" >
+        #{promotionId,jdbcType=BIGINT},
+      </if>
+      <if test="monthrentId != null" >
+        #{monthrentId,jdbcType=BIGINT},
+      </if>
+      <if test="couponMoney != null" >
+        #{couponMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="refundNo != null" >
+        #{refundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundMoney != null" >
+        #{refundMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="refundTime != null" >
+        #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponGroupId != null" >
+        #{couponGroupId,jdbcType=TINYINT},
+      </if>
+      <if test="promotionGroupId != null" >
+        #{promotionGroupId,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ybl.om.model.UserOrder" >
+    update bk_user_order_20170701_20170731
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="carparkId != null" >
+        carpark_id = #{carparkId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="carNo != null" >
+        car_no = #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=TINYINT},
+      </if>
+      <if test="enterTime != null" >
+        enter_time = #{enterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shouldCharge != null" >
+        should_charge = #{shouldCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="disountFee != null" >
+        disount_fee = #{disountFee,jdbcType=DECIMAL},
+      </if>
+      <if test="alreadyPaid != null" >
+        already_paid = #{alreadyPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargePeriodQuantity != null" >
+        recharge_period_quantity = #{rechargePeriodQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="rechargePeriodUnit != null" >
+        recharge_period_unit = #{rechargePeriodUnit,jdbcType=TINYINT},
+      </if>
+      <if test="customer != null" >
+        customer = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        recommend = #{recommend,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=TINYINT},
+      </if>
+      <if test="paySuccessTime != null" >
+        pay_success_time = #{paySuccessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTime != null" >
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalMoney != null" >
+        total_money = #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="discountMoney != null" >
+        discount_money = #{discountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payMoney != null" >
+        pay_money = #{payMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceType != null" >
+        service_type = #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null" >
+        pay_method = #{payMethod,jdbcType=TINYINT},
+      </if>
+      <if test="payCode != null" >
+        pay_code = #{payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payOs != null" >
+        pay_os = #{payOs,jdbcType=VARCHAR},
+      </if>
+      <if test="promotionCouponCode != null" >
+        promotion_coupon_code = #{promotionCouponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCode != null" >
+        coupon_code = #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdMerchantId != null" >
+        third_merchant_id = #{thirdMerchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="beckMerchantId != null" >
+        beck_merchant_id = #{beckMerchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="timeoutTaskId != null" >
+        timeout_task_id = #{timeoutTaskId,jdbcType=BIGINT},
+      </if>
+      <if test="promotionId != null" >
+        promotion_id = #{promotionId,jdbcType=BIGINT},
+      </if>
+      <if test="monthrentId != null" >
+        monthrent_id = #{monthrentId,jdbcType=BIGINT},
+      </if>
+      <if test="couponMoney != null" >
+        coupon_money = #{couponMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="refundNo != null" >
+        refund_no = #{refundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundMoney != null" >
+        refund_money = #{refundMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="refundTime != null" >
+        refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponGroupId != null" >
+        coupon_group_id = #{couponGroupId,jdbcType=TINYINT},
+      </if>
+      <if test="promotionGroupId != null" >
+        promotion_group_id = #{promotionGroupId,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ybl.om.model.UserOrder" >
+    update bk_user_order_20170701_20170731
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      carpark_id = #{carparkId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      subject = #{subject,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      car_no = #{carNo,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=TINYINT},
+      enter_time = #{enterTime,jdbcType=TIMESTAMP},
+      should_charge = #{shouldCharge,jdbcType=DECIMAL},
+      disount_fee = #{disountFee,jdbcType=DECIMAL},
+      already_paid = #{alreadyPaid,jdbcType=DECIMAL},
+      recharge_period_quantity = #{rechargePeriodQuantity,jdbcType=INTEGER},
+      recharge_period_unit = #{rechargePeriodUnit,jdbcType=TINYINT},
+      customer = #{customer,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      recommend = #{recommend,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      order_state = #{orderState,jdbcType=TINYINT},
+      pay_success_time = #{paySuccessTime,jdbcType=TIMESTAMP},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      total_money = #{totalMoney,jdbcType=DECIMAL},
+      discount_money = #{discountMoney,jdbcType=DECIMAL},
+      pay_money = #{payMoney,jdbcType=DECIMAL},
+      service_type = #{serviceType,jdbcType=VARCHAR},
+      pay_method = #{payMethod,jdbcType=TINYINT},
+      pay_code = #{payCode,jdbcType=VARCHAR},
+      pay_os = #{payOs,jdbcType=VARCHAR},
+      promotion_coupon_code = #{promotionCouponCode,jdbcType=VARCHAR},
+      coupon_code = #{couponCode,jdbcType=VARCHAR},
+      third_merchant_id = #{thirdMerchantId,jdbcType=VARCHAR},
+      beck_merchant_id = #{beckMerchantId,jdbcType=VARCHAR},
+      timeout_task_id = #{timeoutTaskId,jdbcType=BIGINT},
+      promotion_id = #{promotionId,jdbcType=BIGINT},
+      monthrent_id = #{monthrentId,jdbcType=BIGINT},
+      coupon_money = #{couponMoney,jdbcType=DECIMAL},
+      refund_no = #{refundNo,jdbcType=VARCHAR},
+      refund_money = #{refundMoney,jdbcType=DECIMAL},
+      refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      coupon_group_id = #{couponGroupId,jdbcType=TINYINT},
+      promotion_group_id = #{promotionGroupId,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
