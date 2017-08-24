@@ -55,6 +55,7 @@ CREATE TABLE `bk_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `permission_name` varchar(200) NOT NULL COMMENT '权限名称:新增用户',
   `permission_point` varchar(32) NOT NULL COMMENT '权限子节点描述(增删改查):a、d、m、s',
+  `permission_url` varchar(200) NOT NULL COMMENT '权限的路径url',
   `created_by` varchar(100) DEFAULT NULL COMMENT '创建者',
   `creation_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`),
