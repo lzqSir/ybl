@@ -1,7 +1,6 @@
 package com.ybl.om.controller;
 
-import com.ybl.om.dao.UserMapper;
-import com.ybl.om.model.User;
+import com.ybl.om.dao.mapper.user.UserMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,8 +19,8 @@ public class OrderController {
     @ResponseBody
     public String helloOM(HttpServletRequest request, HttpServletResponse response){
 
-        final User user = userMapper.selectByPrimaryKey(5L);
-        System.out.println(user);
+       // final User user = userMapper.selectByPrimaryKey(5L);
+        //System.out.println(user);
         return "hahahahhahahaha!!!!";
 
 

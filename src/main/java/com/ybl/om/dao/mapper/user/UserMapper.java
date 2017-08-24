@@ -1,6 +1,9 @@
-package com.ybl.om.dao;
+package com.ybl.om.dao.mapper.user;
 
-import com.ybl.om.model.User;
+import com.ybl.om.model.user.User;
+
+import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +17,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    List<User> selectUserList(Map<String,Object> paramMap);
 }

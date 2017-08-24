@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+      "mybatis-3-mapper.dtd">
+  <mapper namespace="com.ybl.om.dao.mapper.common.CommonDao">
+
+    <sql id="selectFields">
+      <choose><when test="selectFields != null"><foreach collection="selectFields" item="item" index="index" open=" " separator="," close=" ">${item}</foreach></when><otherwise>*</otherwise></choose>
+    </sql>
+    
+    <sql id="commonWhere">
+            <if test="propertysEqual != null">
+              <foreach collection="propertysEqual" item="item" index="index" open=" " separator=" " close=" ">  
+                    AND ${item.key} <choose><when test="item.value != null "> = #{item.value}</when><otherwise> IS NULL </otherwise></choose>     
+              </foreach>
+	        </if>
+	        <if test="propertysNotEqual != null">
+              <foreach collection="propertysNotEqual" item="item" index="index" open=" " separator=" " close=" ">  
+                    AND ${item.key} <choose><when test="item.value != null "> <![CDATA[ <>  ]]> #{item.value} </when><otherwise> IS NOT NULL </otherwise></choose>     
+              </foreach>
+	        </if>
+            <if test="propertysLike != null">
+              <foreach collection="propertysLike" item="item" index="index" open=" " separator=" " close=" ">  
+                   AND ${item.key} LIKE CONCAT('%',#{item.value},'%')
+              </foreach>
+	        </if> 
+	        
+	        <if test="propertysLeftLike != null">
+              <foreach collection="propertysLeftLike" item="item" index="index" open=" " separator=" " close=" ">  
+                  AND ${item.key} LIKE CONCAT('%',#{item.value}) 
+              </foreach>
+	        </if> 
+	        
+	        <if test="propertysRightLike != null">
+              <foreach collection="propertysRightLike" item="item" index="index" open=" " separator=" " close=" ">  
+                   AND ${item.key} LIKE CONCAT(#{item.value},'%') 
+              </foreach>
+	        </if> 
+	        
+	        <if test="propertysGT != null">
+	           <foreach collection="propertysGT" item="item" index="index" open=" " separator=" " close=" ">  
+	              AND ${item.key} <![CDATA[ > ]]>  #{item.value}
+                </foreach>
+	        </if>
+	        <if test="propertysGTE != null">
+	           <foreach collection="propertysGTE" item="item" index="index" open=" " separator=" " close=" ">  
+                 AND ${item.key} <![CDATA[ >= ]]>  #{item.value}       
+               </foreach>
+	        </if>
+	        <if test="propertysLT != null">
+	           <foreach collection="propertysLT" item="item" index="index" open=" " separator=" " close=" ">  
+                 AND ${item.key} <![CDATA[  <  ]]>  #{item.value}            
+               </foreach>
+	        </if>
+	        <if test="propertysLTE != null">
+	           <foreach collection="propertysLTE" item="item" index="index" open=" " separator=" " close=" ">  
+                 AND ${item.key} <![CDATA[ <= ]]> #{item.value}             
+               </foreach>
+	        </if>
+	        <if test="propertysIn != null">
+	           <foreach collection="propertysIn" item="item" index="index" open=" " separator=" " close=" ">  
+                     AND ${item.key} IN 
+                     <foreach collection="item.value" item="item1" index="index1" open="(" separator="," close=") ">  
+	                     #{item1}   
+	                 </foreach>           
+               </foreach>
+	        </if>
+	        
+	        <if test="propertysNotIn != null">
+	           <foreach collection="propertysNotIn" item="item" index="index" open=" " separator=" " close=" ">  
+                     AND ${item.key} NOT IN
+                     <foreach collection="item.value" item="item1" index="index1" open="(" separator="," close=") ">  
+	                     #{item1}   
+	                 </foreach>           
+               </foreach>
+	        </if>
+ 	        
+	        <if test="whereString != null">${whereString}</if>
+    </sql>
+    
+    <select id="selectDatas" parameterType="com.parkplus.cloud.park.core.dto.sync.CommonParam" resultType="java.util.LinkedHashMap">
+         SELECT <include refid="selectFields"></include> FROM ${physical_table_name} 
+         <where> <include refid="commonWhere"/> </where>
+         <if test="group_by !=null "> GROUP BY ${group_by} </if>
+         <if test="order_by != null"> ORDER BY ${order_by} </if>
+         <if test="limit  != null"> LIMIT ${limit} </if>
+    </select>
+    
+    <select id="selectDatasCount" parameterType="com.parkplus.cloud.park.core.dto.sync.CommonParam" resultType="long">  
+         SELECT COUNT(*) AS count FROM ${physical_table_name} 
+         <where> <include refid="commonWhere"/> </where>
+    </select>
+    
+    <delete id="deleteData" parameterType="com.parkplus.cloud.park.core.dto.sync.CommonParam">
+        DELETE FROM ${physical_table_name} <where> <include refid="commonWhere"/> </where>
+    </delete>
+    
+    <insert id="insertData" parameterType="com.parkplus.cloud.park.core.dto.sync.CommonParam">
+        INSERT INTO ${physical_table_name} <foreach collection="insertNames" item="item" index="index" open=" (" separator=", " close=") ">${item}</foreach>
+        VALUES <foreach collection="insertValues" item="itemv" index="index" open=" (" separator=", " close=") ">#{itemv}</foreach>
+    </insert>
+    
+    <insert id="insertAutoIncData" parameterType="com.parkplus.cloud.park.core.dto.sync.CommonParam">
+        <selectKey keyProperty="insertId" resultType="long">SELECT LAST_INSERT_ID() </selectKey>
+        INSERT INTO ${physical_table_name} <foreach collection="insertNames" item="item" index="index" open=" (" separator=", " close=") ">${item}</foreach>
+        VALUES <foreach collection="insertValues" item="itemv" index="index" open=" (" separator=", " close=") ">#{itemv}</foreach>
+    </insert>
+    
+    <update id="updateData" parameterType="com.parkplus.cloud.park.core.dto.sync.CommonParam">
+        UPDATE ${physical_table_name} 
+        <set> 
+           <choose>
+              <when test="updateKeyValues != null and updateKeyvalueSqls == null">
+                   <foreach collection="updateKeyValues" item="item" index="index" open=" " separator=", " close=" "> ${item.key} = #{item.value} </foreach>
+              </when>
+              <when test="updateKeyValues != null and updateKeyvalueSqls != null">
+                  <foreach collection="updateKeyValues" item="item" index="index" open=" " separator=", " close=", "> ${item.key} = #{item.value} </foreach>
+                  <foreach collection="updateKeyvalueSqls" item="item" index="index" open=" " separator=", " close=" "> ${item} </foreach>
+              </when>
+              <when test="updateKeyValues == null and updateKeyvalueSqls != null">
+                 <foreach collection="updateKeyvalueSqls" item="item" index="index" open=" " separator=", " close=" "> ${item} </foreach>
+              </when>
+           </choose>
+        </set>
+        <where> <include refid="commonWhere"/> </where>
+     </update>
+   
+  </mapper>  
