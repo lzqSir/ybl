@@ -26,125 +26,215 @@
 		<![endif]-->
 		<title>库存转移订单</title>
 	</head>
-	<body ng-controller="myBusiCtr">
-		<div class="container_wrap">
-			<div class="select-box gap">
-				<div style="width: 98%;margin:0 auto;">
-					<button class="btn btn-success radius add-btn col-offset-11" ng-click="addPage()"><i class="Hui-iconfont">&#xe600;</i>新增</button>
+	<body>
+	<nav class="breadcrumb">库存转移订单</nav>
+	<div class="page-container">
+		<form id="systemCarparkSearchFrom" class="form form-horizontal">
+			<div class="row cl">
+				<label class="form-label col-xs-2 col-sm-2 text-overflow">转移订单号</label>
+				<div class="formControls col-xs-3 col-sm-3">
+					<input class="input-text radius size-S" name="carpark_name" />
+				</div>
+				<label class="form-label col-xs-3 col-sm-3 text-overflow">查询条件</label>
+				<div class="formControls col-xs-3 col-sm-3">
+					<input type="hidden" name="park_mode" value="0"/>
+					<input class="input-text radius size-S"  readonly="readonly"/>
 				</div>
 			</div>
-			<div class="table-responsive table-bg table-hover table-condensed table-border table-bordered" style="width: 98%;margin:0 auto;margin-top: 20px;">
-				<table border="0" cellspacing="0" cellpadding="0" class="table">
-					<thead>
-						<tr class="text-c">
-							<th>商户</th>
-							<th>商户停车场</th>
-							<th>银行</th>
-							<th>支行</th>
-							<th>账号</th>
-							<th>开户名</th>
-							<th>操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="text-c" ng-repeat='item in busin'>
-							<td ng-bind="item.name"></td>
-							<td ng-bind="item.carport">瀚森大厦</td>
-							<td ng-bind="item.blank">建设银行</td>
-							<td ng-bind="item.blankOther">广东省深圳市朗山路支行</td>
-							<td ng-bind="item.num">6222 0333 1234 1234</td>
-							<td ng-bind="item.blankName">深圳恒达物业有限公司</td>
-							<td><span style="cursor: pointer;color:#00A0E9;" class="change-btn" ng-bind="item.ope1" ng-click="changeContent($index)">修改</span><span style="cursor: pointer;color:#00A0E9;margin-left:10px;" class="dele-btn" ng-bind="item.ope2" ng-click="dele($index)">删除</span></td>
-						</tr>
-					</tbody>
-				</table>
+			<!-- <label class="form-label col-xs-2 col-sm-2 text-overflow"></label>
+            <div class="formControls col-xs-1 col-sm-1" style="padding-right:0">
+                <select class="select select-box input-text radius size-S" name="province" id="s1">
+                    <option></option>
+                </select>
+            </div>
+            <div class="formControls col-xs-1 col-sm-1" style="padding:0 7.5px;">
+                <select class="select select-box input-text radius size-S" name="city" id="s2">
+                    <option></option>
+                </select>
+            </div>
+            <div class="formControls col-xs-1 col-sm-1" style="padding-left:0">
+                <select class="select select-box input-text radius size-S" name="district" id="s3">
+                    <option></option>
+                </select>
+            </div> -->
+			<!-- <div class="formControls col-xs-3 col-sm-3">
+                <select class="select select-box input-text radius size-S" name="total_space_count_str">
+                    <option value="">全部</option>
+                    <option value="0-300">0-300</option>
+                    <option value="301-600">301-600</option>
+                    <option value="601-1000">601-1000</option>
+                    <option value="1001-2000">1001-2000</option>
+                    <option value="2001-3000">2001-3000</option>
+                </select>
+            </div> -->
+			<div class="row cl">
+				<label class="form-label col-xs-2 col-sm-2 text-overflow">转移时间</label>
+				<div class="formControls col-xs-3 col-sm-3">
+					<input type="text" class="input-text Wdate radius size-S" name="created_time_from"
+						   onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}'})" id="logmin">
+				</div>
+				<span class="form-label col-xs-1 col-sm-1 Hui-iconfont" style="text-align:center;">&#xe6d7;&#xe6d7;</span>
+				<div class="formControls col-xs-3 col-sm-3">
+					<input type="text" class="input-text Wdate radius size-S" name="created_time_to"
+						   onfocus="WdatePicker({minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d'})" id="logmax">
+				</div>
+			</div>
+		</form>
+		<div class="cl mt-15 btn-group btn-group-justified" role="group">
+			<div class="btn-group" style="display:table; margin-left:auto; margin-right:auto;" role="group">
+				<button type="button" class="btn-search btn btn-default size-S Hui-iconfont" onclick="doSearch();">&#xe683; 查询</button>
+				<button type="button" class="btn btn-default size-S Hui-iconfont" style="margin-left:10px;" onclick="doReset();">&#xe68f; 重置</button>
 			</div>
 		</div>
-		<new-page branch-data="branchData" ng-if="module">
-			<form action="" class="form-inline" ng-repeat="item in branchData">
-				<div class="form-group gap col-sm-12 col-offset-1">
-					<label for="" class="con col-sm-3">商户名:</label>
-					<input type="text" name="" id="user-name" value="{{item.name}}" class="inline input-text radius"/>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-12 col-offset-1">
-					<label for="" class="con col-sm-3">商户停车场:</label>
-					<select class="inline input-text radius" style="width:163px">
-						<option ng-bind="item.carport"></option>
-					</select>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-12 col-offset-1">
-					<label for="" class="con col-sm-3">银行：</label>
-					<input type="text" name="" id="" value="{{item.blank}}" class="inline input-text radius"/>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-12 col-offset-1">
-					<label for="" class="con col-sm-3">支行：</label>
-					<select name="" class="inline input-text radius" style="width:120px;">
-						<option value="">{{item.blankOther0}}</option>
-					</select>
-					<select name="" class="inline input-text radius" style="width:120px;">
-						<option value="">{{item.blankOther1}}</option>
-					</select>
-					<input type="text" name="" id="" value="{{item.blankOther2}}" class="inline input-text radius" style="width:120px;"/>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-12 col-offset-1">
-					<label for="" class="con col-sm-3">账户：</label>
-					<input type="text" name="" id="" value="{{item.num}}" class="inline input-text radius"/>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-12 col-offset-1">
-					<label for="" class="con col-sm-3">开户名：</label>
-					<input type="text" name="" id="" value="{{item.blankName}}" class="inline input-text radius"/>
-				</div>
-				<div class="clear"></div>
-			</form>
-		</new-page>
-		<add-module branch-list="branchList" ng-if="newAdd">
-			<form action="" class="form-inline">
-				<div class="form-group gap col-sm-9 col-offset-2">
-					<label for="" class="con col-sm-3">商户名:</label>
-					<input type="text" name="" id="" value="" class="inline input-text radius"/>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-9 col-offset-2">
-					<label for="" class="con col-sm-3">商户停车场:</label>
-					<select class="inline input-text radius" style="width:163px">
-						<option>豪森大厦</option>
-						<option>水吧小区</option>
-					</select>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-9 col-offset-2">
-					<label for="" class="con col-sm-3">银行：</label>
-					<input type="text" name="" id="" value="" class="inline input-text radius"/>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-9 col-offset-2">
-					<label for="" class="con col-sm-3">支行：</label>
-					<select name="" class="inline input-text radius" style="width:100px;">
-						<option value=""></option>
-					</select>
-					<select name="" class="inline input-text radius" style="width:100px;">
-						<option value=""></option>
-					</select>
-					<input type="text" name="" id="" value="" class="inline input-text radius" style="width:100px;"/>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-9 col-offset-2">
-					<label for="" class="con col-sm-3">账户：</label>
-					<input type="text" name="" id="" value="" class="inline input-text radius"/>
-				</div>
-				<div class="clear"></div>
-				<div class="form-group gap col-sm-9 col-offset-2">
-					<label for="" class="con col-sm-3">开户名：</label>
-					<input type="text" name="" id="" value="" class="inline input-text radius"/>
-				</div>
-				<div class="clear"></div>
-			</form>
-		</add-module>
+		<div class="cl mt-15 mb-5">
+			<div class="btn-group f-l">
+				<button type="button" class="btn btn-default size-S Hui-iconfont" title="新增"
+						onclick="carpark_edit('新增','stock_order_management_edit.html')">&#xe600; 新增</button>
+			</div>
+		</div>
+
+
+		<!-- 表格 -->
+		<div class="cl" id="refreshTableDiv" style="overflow-x:auto; overflow-y:hidden; margin:0 auto;">
+			<table class="text-overflow radius table table-border table-bordered table-bg table-striped table-hover table-condensed table-responsive">
+				<thead>
+				<tr class="text-c">
+					<th>操作</th>
+					<th>创建出货单</th>
+					<th>从库存位置</th>
+					<th>到库存位置</th>
+					<th>订单已取消</th>
+					<th>取消订单</th>
+					<th>文件号码</th>
+					<th>文件类型</th>
+					<th>公司代码</th>
+					<th>采购组</th>
+					<th>描述</th>
+					<th>移动日期</th>
+					<th>送货日期</th>
+					<th>同步库存转移订单</th>
+				</tr>
+				</thead>
+				<tbody id="tbodyId">
+				<tr class="text-c">
+					<td>
+						<a style="color:#0EC6FF;" href="javascript:carpark_view('查看','stock_order_management_edit.html')">查看</a>
+						<a style="color:#0EC6FF;" href="javascript:carpark_edit('编辑','stock_order_management_edit.html')">编辑</a>
+						<a style="color:#0EC6FF;" href="javascript:carpark_del('/systemCarpark/delete.do?id=${carpark.id}')">删除</a>
+					</td>
+					<td>Y</td>
+					<td>0001_成品</td>
+					<td>9121_广西</td>
+					<td></td>
+					<td>N</td>
+					<td>2222111111</td>
+					<td>EB库存转移订单</td>
+					<td>3001</td>
+					<td>批发-广西办</td>
+					<td>11</td>
+					<td>2017-08-20</td>
+					<td>2017-08-20</td>
+					<td>Y</td>
+				</tr>
+				<tr class="text-c">
+					<td colspan="13">没有更多符合条件的记录了</td>
+				</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+
+
+	</div>
+	<script type="text/javascript" src="../..//lib/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../..//lib/layer/2.1/layer.js"></script>
+	<script type="text/javascript" src="../..//lib/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script>
+	<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script>
+	<script type="text/javascript" src="../../static/h-ui/js/geo.js"></script>
+	<script type="text/javascript">
+        // 初始化省市区下拉控件
+        // 菜单链接到此页面后执行查询
+        doSearch();
+        function doSearch(gotoPageInt, recordsCount) {
+            if (!gotoPageInt) {
+                gotoPageInt = 1;
+            }
+            if (!recordsCount) {
+                recordsCount = "";
+            }
+            $.ajax({
+                url : "../..//systemCarpark/search.do?gotoPageInt=" + gotoPageInt + "&recordsCount=" + recordsCount,
+                type : "POST",
+                data : $("#systemCarparkSearchFrom").serializeArray(),
+                beforeSend:function(XMLHttpRequest){
+                    layer.load();
+                    $(".btn-search").attr("disabled", true);
+                },
+                success:function(txt) { //回调方法
+                    $("#refreshTableDiv").html(txt);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.status == 403) {
+                        window.location.href = "../..//noprivilege.jsp";
+                    } else {
+                        $("#tbodyId tr:last td").html("请求失败，请稍后再试！");
+                    }
+                },
+                complete : function (XMLHttpRequest, textStatus) {
+                    layer.closeAll('loading');
+                    $(".btn-search").attr("disabled", false);
+                }
+            });
+        };
+
+        function doReset() {
+            $('#systemCarparkSearchFrom')[0].reset();
+            doSearch();
+        };
+
+        function carpark_view(title, url) {
+            var index = layer.open({
+                type: 2,// Number: 0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                title: title, //String// Array//Boolean "标题"，"['文本', '样式']"， trur/false
+                shade: 0.5,//默认：0.3  遮罩:String/Array/Boolean
+                area: ['80%', '90%'],// 宽高
+                content: url // String/DOM/Array 随着type的不同而不同
+            });
+            layer.full(index);
+        };
+
+        function carpark_edit(title, url) {
+            //var path = "../../" + url;
+            //layer_show(title, path, "820", "500");
+            var index = layer.open({
+                type: 2,// Number: 0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                title: title, //String// Array//Boolean "标题"，"['文本', '样式']"， trur/false
+                shade: 0.5,//默认：0.3  遮罩:String/Array/Boolean
+                area: ['80%', '90%'],// 宽高
+                content: url // String/DOM/Array 随着type的不同而不同
+            });
+            layer.full(index);
+        };
+
+		/*删除*/
+        function carpark_del(url) {
+            layer.confirm('确认要删除吗？',function(flag) {
+                $.ajax({
+                    url : "../../" + url,
+                    type : "GET",
+                    success : function(txt) { //回调方法
+                        layer.msg('已删除!',{icon:1,time:1500});
+                        doSearch();
+                    },
+                    error : function() {
+                        layer.msg('请求失败，请稍后再试！',{icon:2, time:1500});
+                    }
+                });
+            });
+        };
+	</script>
 	</body>
 	<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script> 
 	<script src="../../lib/angular.min.js" type="text/javascript" charset="utf-8"></script>
